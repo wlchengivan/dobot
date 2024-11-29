@@ -1,35 +1,21 @@
-from serial.tools import list_ports
-import pointList
-import pydobot
-import myDobotAPI
-import detectColorWithImage
-import alignment
+# version: Python3
+from DobotEDU import *
+import os
+import myDobotEDUAPI
 
-available_ports = list_ports.comports()
-print(f'available ports: {[x.device for x in available_ports]}')
-port = available_ports[0].device
+res = dobotEdu.m_lite.search_dobot()  # 调用search_dobot接口，搜索机械臂接口，返回接口列表
+print("搜索到的接口结果：", res)
+port_name = res[0]["portName"]  # 选择可用机械臂接口，默认选择第一个，出现问题用户需要确认是否连接的是机械臂接口
+dobotEdu.m_lite.connect_dobot(port_name, True)
+dobot = dobot_edu.m_lite
 
-device = pydobot.Dobot(port=port, verbose=True)
+print(port_name)
+dobot.set_ptpcmd(port_name, 0, 230, 50, 0, 20, True, True)  # 调用set_ptpcmd接口，机械臂PTP运动
 
-device.move_to(250, 0 ,70, 0, wait=True)
+
+myDobotEDUAPI.takeUpObject(dobot, port_name)
 
 
-plallet = myDobotAPI.pallet(device)
 
-print(plallet)
-
-for point in plallet:
-    posListTemp = {
-        "x" : point[1],
-        "y" : point[2],
-        "z" : point[3],
-        "r" : point[4]
-    }
-    print(posListTemp)
-    device.move_to(250, 0 ,70, 0, wait=True)
-
-    myDobotAPI.myMovJ(device, posListTemp)
-    device.suck(True)
-    myDobotAPI.myJump(device, pointList.greenPoint)
-    device.suck(False)
-
+dobot.set_endeffector_suctioncup(port_name, False, True, True)
+dobot.disconnect_dobot(port_name)

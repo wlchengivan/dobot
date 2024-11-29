@@ -48,7 +48,7 @@ def takeUpObject(device, posList):
     
 def pallet(device):
     print("Select P1")
-    os.system("pause")
+    input()
     P1 = device.pose()
     
     P1List = {
@@ -59,7 +59,7 @@ def pallet(device):
     }
     
     print("Select P2")
-    os.system("pause")
+    input()
     P2 = device.pose()
     
     P1List = {
