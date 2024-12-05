@@ -171,15 +171,15 @@ def checkColor(self):
         print("no color")
 
 
-dobot.start()
+#dobot.start()
 #print(dobot.dashboard.RobotMode()[3])
 #dobot.dashboard.MovJ(10,10,20,0,0,0, 1)  
 #dobot.dashboard.MovJ(10,10,40,0,0,0, 1)   
-dobot.dashboard.ClearError()
+#dobot.dashboard.ClearError()
 
-sex = detectFaceWithImage.checkSex()
+#sex = detectFaceWithImage.checkSex()
 
-if sex == "Male":
+"""if sex == "Male":
     print("Male")
     dobot.dashboard.MovJ(10,10,20,0,0,0, 1)  
 elif sex == "Female":
@@ -190,7 +190,7 @@ elif sex == 0:
     dobot.dashboard.MovJ(0,0,0,0,0,0, 1)  
 elif sex == 1:
     print("Many people")
-    dobot.dashboard.MovJ(0,0,0,0,0,0, 1) 
+    dobot.dashboard.MovJ(0,0,0,0,0,0, 1) """
 
 #print(dobot.dashboard.InverseKin(float(pose[0]), float(pose[1]), float(pose[2]), float(pose[3]), float(pose[4]), float(pose[5])))
 #print(dobot.dashboard.InverseKin(-318, 128, 203, 178, 0.22, 54))

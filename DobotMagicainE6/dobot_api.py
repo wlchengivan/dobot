@@ -1843,11 +1843,28 @@ class DobotApiDashboard(DobotApi):
         v     int     velocity rate of the robot arm when executing this command. Range: (0,100].
         cp     int     continuous path rate. Range: [0,100].
         """
+        
+        
+        
+        
         string = ""
         if coordinateMode == 0:
             string = "MovJ(pose={{{:f},{:f},{:f},{:f},{:f},{:f}}}".format(
                 a1, b1, c1, d1, e1, f1)
         elif coordinateMode == 1:
+            a1 = float(a1)
+            f1 = float(f1)
+            while a1 < -360 or a1 > 360 or f1 < -360 or f1 > 360:
+                if(a1 < -360):
+                    a1 = a1 + 360 
+                if(a1 > 360):
+                    a1 = a1 - 360
+                if(f1 < -360):
+                    f1 = f1 + 360
+                if(f1 > 360):
+                    a1 = a1 - 360
+            
+            
             string = "MovJ(joint={{{:f},{:f},{:f},{:f},{:f},{:f}}}".format(
                 a1, b1, c1, d1, e1, f1)
         else:
