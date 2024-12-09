@@ -59,7 +59,7 @@ def bigLego():
             tempPoint = E6.jointToPose(startJ)
             tempPoint = [float(x) for x in tempPoint]
 
-            tempPoint[2] = tempPoint[2] - (pointList.bigLegoSize * i) + (0.5 * i)
+            tempPoint[2] = tempPoint[2] - (pointList.bigLegoSize * i)  - 4.5
 
             print(tempPoint)
             
@@ -75,7 +75,7 @@ def bigLego():
             tempPoint2 = E6.jointToPose(targetJ)
             tempPoint2 = [float(x) for x in tempPoint2]
 
-            tempPoint2[2] = tempPoint2[2] + (pointList.bigLegoSize * i)
+            tempPoint2[2] = tempPoint2[2] + (pointList.bigLegoSize * i) -3
 
             E6.myMovJJoint(targetJ2)
             #E6.move()
@@ -99,7 +99,7 @@ def bigLego():
             tempPoint = E6.jointToPose(targetJ)
             tempPoint = [float(x) for x in tempPoint]
 
-            tempPoint[2] = tempPoint[2]  + (pointList.bigLegoSize * (total - i - 1)) + (0.75 * i)
+            tempPoint[2] = tempPoint[2]  + (pointList.bigLegoSize * (total - i - 1)) -4.5
             
 
 
@@ -117,7 +117,7 @@ def bigLego():
             tempPoint2 = E6.jointToPose(startJ)
             tempPoint2 = [float(x) for x in tempPoint2]
 
-            tempPoint2[2] = tempPoint2[2] - (pointList.bigLegoSize * (total - i - 1))
+            tempPoint2[2] = tempPoint2[2] - (pointList.bigLegoSize * (total - i - 1)) -3
 
             E6.myMovJJoint(startJ2)
             E6.myMovLPose(tempPoint2)

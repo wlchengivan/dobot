@@ -122,7 +122,7 @@ class E6:
         
     def myMovJPose(self, pose):
         self.wait(0)
-        self.dashboard.MovJ(float(pose[0]), float(pose[1]),  float(pose[2]), float(pose[3]), float(pose[4]), float(pose[5]), 0)
+        self.dashboard.MovJ(float(pose[0]), float(pose[1]),  float(pose[2]), 180, 0, 0, 0)
         
 
     def myMovJPtoJ(self, pose):

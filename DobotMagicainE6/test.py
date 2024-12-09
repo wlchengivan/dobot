@@ -67,13 +67,12 @@ if __name__ == '__main__':
     E6.dashboard.ClearError()
     E6.dashboard.SpeedFactor(100)
     E6.dashboard.SetBackDistance(50)
+
     
-    startJ, targetJ, startJ2, targetJ2 = pointList.turnLR(0)
+    startJ, targetJ, startJ2, targetJ2 = pointList.turnLR(1)
+    E6.myMovJJoint(targetJ)
+    #print(E6.getPose())
     
-    list= pointList.turnLR(0)
-    
-    #E6.myMovJJoint(targetJ)
-    
-    for p in list:
-        E6.myMovJJoint(p)
-        os.system("pause")
+    #E6.myMovJPose(['318.8927', '57.8184', '299.6715', '180', '0', '0'])
+    E6.wait(0)
+    print(E6.getAngle())
