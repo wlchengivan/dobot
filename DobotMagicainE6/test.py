@@ -4,6 +4,7 @@ import myE6API
 import pointList
 from pynput.keyboard import Key, Listener
 import time
+import os
 
 moveDis = 10
 
@@ -66,33 +67,13 @@ if __name__ == '__main__':
     E6.dashboard.ClearError()
     E6.dashboard.SpeedFactor(100)
     E6.dashboard.SetBackDistance(50)
-    while True:
-        print("1:移動 \n2:更改點動距離 \n3:取得位置 \n4:取得關節角度 \n5:重啟 \n6:舞動 \n0:退出")
-        
-        a = input()
-        match a:
-            case '1':
-                with Listener(on_press=on_press, on_release=on_release) as listener:
-                    listener.join()
-                    
-            case '2':
-                print("請輸入點動距離:")
-                moveDis = int(input())
-                
-            case '3':
-                print(E6.getPose())
-                
-            case '4':
-                print(E6.getAngle())
-                
-            case '5':
-                E6.start()
-                E6.dashboard.Stop()
-                E6.dashboard.ClearError()
-                
-            case '6':
-                E6.dance()
-                    
-            case '0':
-                #E6.off()
-                break
+    
+    startJ, targetJ, startJ2, targetJ2 = pointList.turnLR(0)
+    
+    list= pointList.turnLR(0)
+    
+    #E6.myMovJJoint(targetJ)
+    
+    for p in list:
+        E6.myMovJJoint(p)
+        os.system("pause")

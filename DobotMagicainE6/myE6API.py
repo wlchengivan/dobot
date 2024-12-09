@@ -97,32 +97,57 @@ class E6:
         self.dashboard.DisableRobot()
     
     def getPose(self):
+        self.wait(0)
         return self.toList(self.dashboard.GetPose())
     
     def getAngle(self):
+        self.wait(0)
         return self.toList(self.dashboard.GetAngle())
     
     def poseToJoint(self, poseList):
+        self.wait(0)
         return self.toList(self.dashboard.InverseKin(float(poseList[0]), float(poseList[1]), float(poseList[2]), float(poseList[3]), float(poseList[4]), float(poseList[5])))
     
     def jointToPose(self, poseList):
+        self.wait(0)
         return self.toList(self.dashboard.PositiveKin(float(poseList[0]), float(poseList[1]), float(poseList[2]), float(poseList[3]), float(poseList[4]), float(poseList[5])))
 
     def toList(self, str):
+        self.wait(0)
         return str.split("{")[1].split("}")[0].split(",")
     
     def myMovJJoint(self, joint):
+        self.wait(0)
         self.dashboard.MovJ(float(joint[0]), float(joint[1]),  float(joint[2]), float(joint[3]), float(joint[4]), float(joint[5]), 1)
         
     def myMovJPose(self, pose):
+        self.wait(0)
         self.dashboard.MovJ(float(pose[0]), float(pose[1]),  float(pose[2]), float(pose[3]), float(pose[4]), float(pose[5]), 0)
         
 
     def myMovJPtoJ(self, pose):
+        self.wait(0)
         pose = [float(x) for x in pose]
         
         joint = self.poseToJoint(pose)
         self.myMovJJoint(joint)
+        
+        
+    def myMovLJoint(self, joint):
+        self.wait(0)
+        self.dashboard.MovL(float(joint[0]), float(joint[1]),  float(joint[2]), float(joint[3]), float(joint[4]), float(joint[5]), 1)
+        
+    def myMovLPose(self, pose):
+        self.wait(0)
+        self.dashboard.MovL(float(pose[0]), float(pose[1]),  float(pose[2]), float(pose[3]), float(pose[4]), float(pose[5]), 0)
+        
+
+    def myMovLPtoJ(self, pose):
+        self.wait(0)
+        pose = [float(x) for x in pose]
+        
+        joint = self.poseToJoint(pose)
+        self.myMovLJoint(joint)
         
         
 
@@ -218,21 +243,22 @@ class E6:
             time.sleep(s)
             
     def home(self):
+        self.wait(0)
         self.myMovJJoint(pointList.HomeJ)
         
     def myToolDO(self, mode):
         if(mode == 1):
-            self.wait(0)
+            self.wait(1)
 
             pose = self.getPose()
             pose = [float(x) for x in pose]
             
-            pose[2] = pose[2] - 2
+            pose[2] = pose[2] - 3
             
             self.myMovJPtoJ(pose)
             
             self.dashboard.ToolDO(1, mode)
-            self.wait(0)
+            self.wait(1)
             
         if(mode == 0):
             self.wait(1)
@@ -241,5 +267,27 @@ class E6:
             
             
     def dance(self): 
+        self.wait(0)
         for danceJ in pointList.dacneList:
             self.myMovJJoint(danceJ)
+            
+    def move(self): 
+        self.wait(0)
+        for danceJ in pointList.moveList:
+            self.myMovJJoint(danceJ)
+            
+            
+    def checkRobotModeInBG(self):
+        
+        while True:
+            robotMode = self.dashboard.RobotMode().split("{")[1].split("}")[0]
+            
+            print(robotMode)
+            
+            if(robotMode == "9" or robotMode == "10" or robotMode == "11"):
+                self.dashboard.ClearError()
+                self.dashboard.Stop()
+                self.start()
+            else:
+                time.sleep(5)
+                
